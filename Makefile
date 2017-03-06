@@ -2,9 +2,9 @@ LIB_NAME=devpkg
 
 CC=gcc
 CFLAGS=-g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG $(OPTFLAGS)
-CFLAGS+= -I${PREFIX}/apr/include/apr-util-1 -I${PREFIX}/apr/include/apr-1
-LDFLAGS=-L${PREFIX}/apr/lib -lapr-1 -pthread -laprutil-1
-LIBS=-ldl $(OPTLIBS)
+#CFLAGS+= -I${PREFIX}/apr/include/apr-util-1 -I${PREFIX}/apr/include/apr-1
+#LDFLAGS=-L${PREFIX}/apr/lib -lapr-1 -lpthread -laprutil-1 -ldl
+LIBS=-ldl -lpthread $(OPTLIBS)
 PREFIX?=/usr/local
 
 SOURCES=$(wildcard src/**/*.c src/*.c)
@@ -29,7 +29,7 @@ build:
 
 #The Unit tests
 .PHONY: tests
-tests: LDLIBS=build/lib$(LIB_NAME).a
+tests: LDLIBS=build/lib$(LIB_NAME).a $(LIBS)
 tests: $(TESTS)
 	sh ./tests/runtests.sh
 
