@@ -14,5 +14,5 @@ Application **get_all_applications();
 void store_application(Application *application);
 void remove_application(char *url);
 void update_application(Application *application);
-void close_db(sqlite3 *db);
+int close_db(sqlite3 *db);
 #endif

@@ -12,8 +12,9 @@ char *test_open() {
 }
 
 char *test_close() {
-  close_db(db);
-  //mu_assert(db == NULL, "Failed to close db");
+  int ret;
+  ret = close_db(db);
+  mu_assert(ret == 0, "Failed to close db");
   return NULL;
 }
 

@@ -34,9 +34,10 @@ void update_application(Application *application) {
 
 }
 
-void close_db(sqlite3 *db) {
+int close_db(sqlite3 *db) {
   check_mem(db);
   sqlite3_close(db);
+  return 0;
 error:
   exit(EXIT_FAILURE);
 }
