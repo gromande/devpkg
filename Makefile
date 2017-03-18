@@ -4,7 +4,7 @@ CC=gcc
 CFLAGS=-g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG $(OPTFLAGS)
 #CFLAGS+= -I${PREFIX}/apr/include/apr-util-1 -I${PREFIX}/apr/include/apr-1
 #LDFLAGS=-L${PREFIX}/apr/lib -lapr-1 -lpthread -laprutil-1 -ldl
-LIBS=-ldl -lpthread $(OPTLIBS)
+LIBS=-Llib -lsqlite -lbstr -ldl -lpthread $(OPTLIBS)
 PREFIX?=/usr/local
 
 SOURCES=$(wildcard src/**/*.c src/*.c)
