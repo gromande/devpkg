@@ -11,8 +11,8 @@ typedef struct Application {
 sqlite3 *open_db();
 Application *get_application(char *url);
 Application **get_all_applications();
-void store_application(Application *application);
-void remove_application(char *url);
-void update_application(Application *application);
+int store_application(Application *application);
+int remove_application(char *url);
+int update_application(Application *application);
 int close_db(sqlite3 *db);
 #endif
