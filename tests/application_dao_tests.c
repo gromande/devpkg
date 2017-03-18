@@ -11,6 +11,20 @@ char *test_open() {
   return NULL;
 }
 
+char *test_get_application() {
+  Application *app = NULL;
+  app = get_application(db, "appA");
+  mu_assert(app != NULL, "Failed to get application");
+  return NULL;
+}
+
+char *test_get_all_applications() {
+  Application **apps = NULL;
+  apps = get_all_applications(db);
+  mu_assert(apps != NULL, "Failed to get all applications");
+  return NULL;
+}
+
 char *test_close() {
   int ret;
   ret = close_db(db);
@@ -22,6 +36,8 @@ char *all_tests() {
   mu_suite_start();
 
   mu_run_test(test_open);
+  mu_run_test(test_get_application);
+  //mu_run_test(test_get_all_applications);
   mu_run_test(test_close);
 
   return NULL;

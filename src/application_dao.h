@@ -4,15 +4,16 @@
 #include "sqlite3.h"
 
 typedef struct Application {
+  char *name;
   char *url;
   char *location;
 } Application;
 
 sqlite3 *open_db();
-Application *get_application(char *url);
-Application **get_all_applications();
-int store_application(Application *application);
-int remove_application(char *url);
-int update_application(Application *application);
+Application *get_application(sqlite3 *db, char *name);
+Application **get_all_applications(sqlite3 *db);
+int store_application(sqlite3 *db, Application *application);
+int remove_application(sqlite3 *db, char *name);
+int update_application(sqlite3 *db, Application *application);
 int close_db(sqlite3 *db);
 #endif

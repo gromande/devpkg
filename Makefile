@@ -1,7 +1,7 @@
 LIB_NAME=devpkg
 
 CC=gcc
-CFLAGS=-g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG $(OPTFLAGS)
+CFLAGS=-g -O2 -Wall -Wextra -Isrc -rdynamic $(OPTFLAGS)
 #CFLAGS+= -I${PREFIX}/apr/include/apr-util-1 -I${PREFIX}/apr/include/apr-1
 #LDFLAGS=-L${PREFIX}/apr/lib -lapr-1 -lpthread -laprutil-1 -ldl
 LIBS=-Llib -lsqlite -lbstr -ldl -lpthread $(OPTLIBS)
