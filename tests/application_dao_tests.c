@@ -15,6 +15,7 @@ char *test_get_application() {
   Application *app = NULL;
   app = get_application(db, "appA");
   mu_assert(app != NULL, "Failed to get application");
+  mu_assert(strcmp("appA",app->name) == 0, "Invalid application name");
   return NULL;
 }
 

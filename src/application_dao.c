@@ -2,6 +2,7 @@
 #include "sqlite3.h"
 #include "dbg.h"
 #include <stdlib.h>
+#include <string.h>
 
 #define DB_FILE               "data/devpkg.db"
 #define GET_ALL_APPS_QUERY    "SELECT * FROM installed"
@@ -10,19 +11,11 @@
 #define DELETE_APP_QUERY      "DELETE FROM installed WHERE name='%s'"
 #define UPDATE_APP_QUERY      "UPDATE installed SET name='%s',url='%s',location='%s' WHERE name='%s'"
 
-int callback(void *arg, int argc, char **argv, char **colName) {
-    int i;
-
-    Application *app;
-    app = malloc(sizeof(Application));
-    app->name = argv[0];
-    app->url = argv[1];
-    app->location = argv[2];
-    arg = app;
-    for (i=0; i<argc; i++){
-        debug("%s = %s\t", colName[i], argv[i] ?  : "NULL");
-    }
-
+int callback(void *input, int argc, char **argv, char **colName) {
+    Application *app = (Application *) input;
+    app->name = strdup(argv[0]);
+    app->url = strdup(argv[1]);
+    app->location = strdup(argv[2]);
     return 0;
 }
 
@@ -31,7 +24,7 @@ sqlite3 *open_db() {
 	if (sqlite3_open(DB_FILE, &db) == SQLITE_OK) {
     return db;
   } else {
-    log_err("Error opening database", sqlite3_errmsg(db));
+    log_err("Error opening database: %s", sqlite3_errmsg(db));
     return NULL;
   }
 }
@@ -39,10 +32,9 @@ sqlite3 *open_db() {
 Application *get_application(sqlite3 *db, char *name) {
   char *query;
   char *errmsg;
-  Application *application;
+  Application *application = malloc(sizeof(Application));
   int rc;
   asprintf(&query, GET_APP_QUERY, name);
-  log_err("query: %s", query);
   if (sqlite3_exec(db, query, callback, application, &errmsg) == SQLITE_OK) {
     return application;
   } else {
